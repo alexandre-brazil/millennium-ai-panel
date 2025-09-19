@@ -1,103 +1,146 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Power,
+  MessageCircle,
+  BarChart3,
+  FileText,
+  Settings,
+} from "lucide-react";
+
+const INSTANCE_NAME =
+  process.env.NEXT_PUBLIC_INSTANCE_NAME || "helloMobile";
+
+export default function DashboardPage() {
+  // Toggle estático por enquanto (somente UI)
+  const [botEnabled, setBotEnabled] = useState(true);
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="p-8 max-w-6xl mx-auto space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Painel – Mobile Clinic</h1>
+          <p className="text-sm text-muted-foreground">
+            Controle rápido do bot e atalhos principais
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <Badge variant="outline">Instância: {INSTANCE_NAME}</Badge>
+      </div>
+
+      {/* Grid de Cards */}
+      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Ligar/Desligar Bot (estático) */}
+        <Card className="hover:shadow-lg transition">
+          <CardContent className="p-6 flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className={`p-2 rounded-xl ${botEnabled ? "bg-green-100" : "bg-red-100"}`}>
+                <Power className={`h-5 w-5 ${botEnabled ? "text-green-600" : "text-red-600"}`} />
+              </div>
+              <div className="space-y-1">
+                <h2 className="font-semibold">Bot Global</h2>
+                <p className="text-sm text-muted-foreground">
+                  {botEnabled ? "Ativo" : "Pausado"}
+                </p>
+              </div>
+            </div>
+            <Button
+              variant={botEnabled ? "destructive" : "default"}
+              onClick={() => setBotEnabled((v) => !v)}
+            >
+              {botEnabled ? "Desligar bot" : "Ligar bot"}
+            </Button>
+            <p className="text-xs text-muted-foreground">
+              (Estático por enquanto. Futuramente vai chamar um endpoint global.)
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Conversas Ativas */}
+        <Card className="hover:shadow-lg transition">
+          <CardContent className="p-6 flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-primary/10">
+                <MessageCircle className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h2 className="font-semibold">Conversas Ativas</h2>
+                <p className="text-sm text-muted-foreground">
+                  Listar, pausar e retomar conversas
+                </p>
+              </div>
+            </div>
+            <Button asChild>
+              <Link href="/conversations">Abrir Conversas</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Estatísticas */}
+        <Card className="hover:shadow-lg transition">
+          <CardContent className="p-6 flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-blue-100">
+                <BarChart3 className="h-5 w-5 text-blue-600" />
+              </div>
+              <div>
+                <h2 className="font-semibold">Estatísticas</h2>
+                <p className="text-sm text-muted-foreground">
+                  Volume, tempo de resposta e taxa de pausa
+                </p>
+              </div>
+            </div>
+            <Button asChild variant="secondary">
+              <Link href="/stats">Ver Estatísticas</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Templates de Resposta (sugestão futura) */}
+        <Card className="hover:shadow-lg transition">
+          <CardContent className="p-6 flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-orange-100">
+                <FileText className="h-5 w-5 text-orange-600" />
+              </div>
+              <div>
+                <h2 className="font-semibold">Templates</h2>
+                <p className="text-sm text-muted-foreground">
+                  Mensagens prontas e variações comerciais
+                </p>
+              </div>
+            </div>
+            <Button variant="outline" disabled>
+              Em breve
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Configurações (sugestão futura) */}
+        <Card className="hover:shadow-lg transition">
+          <CardContent className="p-6 flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-slate-100">
+                <Settings className="h-5 w-5 text-slate-600" />
+              </div>
+              <div>
+                <h2 className="font-semibold">Configurações</h2>
+                <p className="text-sm text-muted-foreground">
+                  Instância padrão, horários, integrações
+                </p>
+              </div>
+            </div>
+            <Button variant="outline" disabled>
+              Em breve
+            </Button>
+          </CardContent>
+        </Card>
+      </section>
+    </main>
   );
 }

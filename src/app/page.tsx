@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -22,13 +23,15 @@ export default function DashboardPage() {
 
   return (
     <main className="p-8 max-w-6xl mx-auto space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Painel – Mobile Clinic</h1>
-          <p className="text-sm text-muted-foreground">
-            Controle rápido do bot e atalhos principais
-          </p>
+          <Image
+                      src="/logo/mobile-logo.png"
+                      alt="Logo empresa"
+                      width={150}
+                      height={50}
+                      className="rounded-md"
+                    />
         </div>
         <Badge
           variant="outline"

@@ -10,10 +10,10 @@ export default function Footer() {
         {/* Logo + Nome */}
         <div className="flex items-center gap-2">
           <Image
-            src="/millennium.png" // 🔹 agora pega direto do public/
+            src="/logo/millennium.png" // 🔹 agora pega direto do public/
             alt="Logo empresa"
-            width={32}
-            height={32}
+            width={250}
+            height={50}
             className="rounded-md"
           />
           <span className="font-medium">Millennium AI</span>

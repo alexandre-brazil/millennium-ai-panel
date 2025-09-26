@@ -1,7 +1,7 @@
 // src/lib/api.ts
 import axios from "axios";
 
-const API_URL = process.env.LOCAL_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Buscar conversas
 export async function fetchConversations() {

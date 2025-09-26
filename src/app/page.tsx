@@ -30,7 +30,18 @@ export default function DashboardPage() {
             Controle rápido do bot e atalhos principais
           </p>
         </div>
-        <Badge variant="outline">Instância: {INSTANCE_NAME}</Badge>
+        <Badge
+          variant="outline"
+          className="flex items-center gap-2 px-3 py-1"
+        >
+          Instância: {INSTANCE_NAME}
+          <Power
+            className={`h-4 w-4 ${
+              botEnabled ? "text-green-500" : "text-red-500"
+            }`}
+            strokeWidth={2.5}
+          />
+        </Badge>
       </div>
 
       {/* Grid de Cards */}

@@ -62,9 +62,6 @@ export default function DashboardPage() {
             >
               {loading ? "Atualizando..." : botEnabled ? "Desligar bot" : "Ligar bot"}
             </Button>
-            <p className="text-xs text-muted-foreground">
-              (Chama a rota /admin/toggle-ai-agent)
-            </p>
           </CardContent>
         </Card>
 

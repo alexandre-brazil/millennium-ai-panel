@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Power,
   MessageCircle,
@@ -13,43 +11,37 @@ import {
   FileText,
   Settings,
 } from "lucide-react";
+import axios from "axios";
 
-const INSTANCE_NAME =
-  process.env.NEXT_PUBLIC_INSTANCE_NAME || "helloMobile";
+const INSTANCE_NAME = process.env.NEXT_PUBLIC_INSTANCE_NAME || "helloMobile";
+
+// Instância axios com URL da API
+const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+});
 
 export default function DashboardPage() {
-  // Toggle estático por enquanto (somente UI)
   const [botEnabled, setBotEnabled] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  // Função que chama a rota do backend
+  const toggleBot = async () => {
+    setLoading(true);
+    try {
+      await api.post("/admin/toggle-ai-agent", { enable: !botEnabled });
+      setBotEnabled((v) => !v);
+    } catch (err) {
+      console.error("Erro ao alternar bot:", err);
+      alert("Não foi possível atualizar o estado do bot.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="p-8 max-w-6xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <Image
-                      src="/logo/mobile-logo.png"
-                      alt="Logo empresa"
-                      width={150}
-                      height={50}
-                      className="rounded-md"
-                    />
-        </div>
-        <Badge
-          variant="outline"
-          className="flex items-center gap-2 px-3 py-1"
-        >
-          Instância: {INSTANCE_NAME}
-          <Power
-            className={`h-4 w-4 ${
-              botEnabled ? "text-green-500" : "text-red-500"
-            }`}
-            strokeWidth={2.5}
-          />
-        </Badge>
-      </div>
-
-      {/* Grid de Cards */}
       <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {/* Ligar/Desligar Bot (estático) */}
+        {/* Bot Global */}
         <Card className="hover:shadow-lg transition">
           <CardContent className="p-6 flex flex-col gap-4">
             <div className="flex items-center gap-3">
@@ -65,12 +57,13 @@ export default function DashboardPage() {
             </div>
             <Button
               variant={botEnabled ? "destructive" : "default"}
-              onClick={() => setBotEnabled((v) => !v)}
+              onClick={toggleBot}
+              disabled={loading}
             >
-              {botEnabled ? "Desligar bot" : "Ligar bot"}
+              {loading ? "Atualizando..." : botEnabled ? "Desligar bot" : "Ligar bot"}
             </Button>
             <p className="text-xs text-muted-foreground">
-              (Estático por enquanto. Futuramente vai chamar um endpoint global.)
+              (Chama a rota /admin/toggle-ai-agent)
             </p>
           </CardContent>
         </Card>
@@ -84,9 +77,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <h2 className="font-semibold">Conversas Ativas</h2>
-                <p className="text-sm text-muted-foreground">
-                  Listar, pausar e retomar conversas
-                </p>
+                <p className="text-sm text-muted-foreground">Listar, pausar e retomar conversas</p>
               </div>
             </div>
             <Button asChild>
@@ -104,9 +95,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <h2 className="font-semibold">Estatísticas</h2>
-                <p className="text-sm text-muted-foreground">
-                  Volume, tempo de resposta e taxa de pausa
-                </p>
+                <p className="text-sm text-muted-foreground">Volume, tempo de resposta e taxa de pausa</p>
               </div>
             </div>
             <Button asChild variant="secondary">
@@ -115,7 +104,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Templates de Resposta (sugestão futura) */}
+        {/* Templates de Resposta */}
         <Card className="hover:shadow-lg transition">
           <CardContent className="p-6 flex flex-col gap-4">
             <div className="flex items-center gap-3">
@@ -124,9 +113,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <h2 className="font-semibold">Templates</h2>
-                <p className="text-sm text-muted-foreground">
-                  Mensagens prontas e variações comerciais
-                </p>
+                <p className="text-sm text-muted-foreground">Mensagens prontas e variações comerciais</p>
               </div>
             </div>
             <Button variant="outline" disabled>
@@ -135,7 +122,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Configurações (sugestão futura) */}
+        {/* Configurações */}
         <Card className="hover:shadow-lg transition">
           <CardContent className="p-6 flex flex-col gap-4">
             <div className="flex items-center gap-3">
@@ -144,9 +131,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <h2 className="font-semibold">Configurações</h2>
-                <p className="text-sm text-muted-foreground">
-                  Instância padrão, horários, integrações
-                </p>
+                <p className="text-sm text-muted-foreground">Instância padrão, horários, integrações</p>
               </div>
             </div>
             <Button variant="outline" disabled>

@@ -25,15 +25,16 @@ export default function ConversationsPage() {
     }
   }
 
-  async function handlePause(remoteJid: string) {
-    await pauseConversation(remoteJid);
-    loadConversations();
-  }
+async function handlePause(instanceId: string, phone: string) {
+  await pauseConversation(instanceId, phone);
+  loadConversations();
+}
 
-  async function handleResume(remoteJid: string) {
-    await resumeConversation(remoteJid);
-    loadConversations();
-  }
+async function handleResume(instanceId: string, phone: string) {
+  await resumeConversation(instanceId, phone);
+  loadConversations();
+}
+
 
   useEffect(() => {
     loadConversations();

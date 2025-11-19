@@ -1,0 +1,14 @@
+{
+  "health": "/health",
+
+  "ai": {
+    "status": "/admin/ai-agent-status",
+    "toggle": "/admin/toggle-ai-agent"
+  },
+
+  "conversations": {
+    "list": "/conversations",
+    "pause": "/conversations/{instanceId}/{phone}/pause",
+    "resume": "/conversations/{instanceId}/{phone}/resume"
+  }
+}

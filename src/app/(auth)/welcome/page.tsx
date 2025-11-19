@@ -3,7 +3,7 @@ import "./welcome.css"
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
-export default function HomePage() {
+export default function Welcome() {
   const router = useRouter();
 
   const goToLogin = () => {

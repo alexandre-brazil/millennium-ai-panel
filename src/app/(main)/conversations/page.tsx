@@ -84,10 +84,15 @@ async function handleResume(instanceId: string, phone: string) {
                       {c.pause ? "Pausada" : "Ativa"}
                     </Badge>
                     {c.pause ? (
-                      <Button onClick={() => handleResume(c.remoteJid)}>Retomar</Button>
-                    ) : (
-                      <Button onClick={() => handlePause(c.remoteJid)}>Pausar</Button>
-                    )}
+  <Button onClick={() => handleResume(c.instanceId, c.remoteJid)}>
+    Retomar
+  </Button>
+) : (
+  <Button onClick={() => handlePause(c.instanceId, c.remoteJid)}>
+    Pausar
+  </Button>
+)}
+
                   </div>
                 </CardContent>
               </Card>

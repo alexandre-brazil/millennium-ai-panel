@@ -22,7 +22,6 @@ export type Produto = {
   nome: string;
   preco: string;
   armazenamento?: string; // Campo extra opcional
-  [key: string]: any; // Para permitir campos adicionais dinamicamente
 };
 
 export type EmpresaData = {
@@ -31,7 +30,6 @@ export type EmpresaData = {
   instagram?: string;
   linkedin?: string;
   twitter?: string;
-  [key: string]: any; // Para permitir adicionar outras redes sociais no futuro
 };
 
 export type TemplateWizardData = {

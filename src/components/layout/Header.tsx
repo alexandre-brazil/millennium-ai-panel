@@ -1,12 +1,6 @@
 "use client";
 import {
   Power,
-  // Mantendo estas importações caso sejam usadas em outro lugar no código original,
-  // mas 'Power' é a única essencial para este componente.
-  MessageCircle,
-  BarChart3,
-  FileText,
-  Settings,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -34,7 +28,7 @@ const INSTANCE_NAME =
                     <Image
                         src="/logo/mobile-logo.png"
                         alt="Logo empresa"
-                        width={150}
+                        width={100}
                         height={50}
                         className="rounded-md"
                     />

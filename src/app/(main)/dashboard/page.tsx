@@ -5,6 +5,7 @@ import { Conversas } from "../../../components/Dashboard/Conversations";
 import { Estatisticas } from "../../../components/Dashboard/Statistics";
 import { SettingsAi } from "../../../components/Dashboard/Settings";
 import { Templates } from "../../../components/Dashboard/Templates";
+import { RealtimeLogMonitor } from "@/components/Dashboard/LogMonitor";
 
 export default function DashboardPage() {
   return (
@@ -15,6 +16,7 @@ export default function DashboardPage() {
         <Estatisticas />
         <Templates />
         <SettingsAi />
+        <RealtimeLogMonitor />
       </section>
     </main>
   );

@@ -21,8 +21,8 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
 
-    const STATIC_EMAIL = "admin@example.com";
-    const STATIC_PASSWORD = "123456";
+    const STATIC_EMAIL = "lojamobileclinic@gmail.com";
+    const STATIC_PASSWORD = "mobile123";
 
     setTimeout(() => {
       if (email === STATIC_EMAIL && password === STATIC_PASSWORD) {

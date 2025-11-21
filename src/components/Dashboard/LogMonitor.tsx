@@ -3,7 +3,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Timer } from "lucide-react";
+import { Activity } from "lucide-react";
 import Link from "next/link";
 
 export function RealtimeLogMonitor() {
@@ -12,10 +12,10 @@ export function RealtimeLogMonitor() {
       <CardContent className="p-6 flex flex-col gap-4">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-blue-100">
-            <Timer className="h-5 w-5 text-blue-600" />
+            <Activity className="h-5 w-5 text-blue-600" />
           </div>
           <div>
-            <h2 className="font-semibold">Agora</h2>
+            <h2 className="font-semibold">Monitor</h2>
             <p className="text-sm text-muted-foreground">Conversas acontecendo</p>
           </div>
         </div>

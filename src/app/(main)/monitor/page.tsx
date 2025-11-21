@@ -113,9 +113,9 @@ export default function RealtimeConversationsDashboard() {
                 </span>
                 <div className="flex items-center space-x-1 text-xs text-gray-400">
                   {info.direction === "inbound" ? (
-                    <User className="w-10 h-10 text-blue-500" />
+                    <User className="w-8 h-8 text-blue-500" />
                   ) : (
-                    <Bot className="w-10 h-10 text-purple-500" />
+                    <Bot className="w-10 h-10 text-orange-500" />
                   )}
                   <span>
                     {info.direction === "inbound" ? "" : ""}

@@ -15,7 +15,7 @@ export function Estatisticas() {
           </div>
           <div>
             <h2 className="font-semibold">Estatísticas</h2>
-            <p className="text-sm text-muted-foreground">Volume, tempo de resposta e taxa de pausa</p>
+            <p className="text-sm text-muted-foreground">Métricas</p>
           </div>
         </div>
         <Button asChild variant="secondary">

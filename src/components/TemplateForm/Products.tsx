@@ -12,7 +12,7 @@ export default function Products({ data, onChange }: Step4Props) {
 
   useEffect(() => {
     onChange(produtos);
-  }, [produtos]);
+  }, [produtos, onChange]);
 
   const addProduto = () => {
     setProdutos((prev) => [...prev, { nome: "", preco: "", armazenamento: "" }]);

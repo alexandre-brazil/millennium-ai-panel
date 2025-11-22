@@ -8,7 +8,6 @@ import {
 } from "../../../types/socket";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { User, Bot, Smartphone } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 type ConversationState = Record<
@@ -44,14 +43,18 @@ export default function RealtimeConversationsDashboard() {
       }));
     };
 
-    const handleOutbound = (data: BotMessageSentData) => {
+const handleOutbound = (data: BotMessageSentData) => {
+      // 💡 O caminho para a imagem estática na pasta 'public'
+      const STATIC_PROFILE_PIC_URL = "/profile/cleo.png";
+
       setConversations((prev) => ({
         ...prev,
         [data.remoteJid]: {
           lastMessage: data.text,
           timestamp: data.timestamp,
           direction: "outbound",
-          profilePicUrl: data.profilePicUrl || null,
+          profilePicUrl: STATIC_PROFILE_PIC_URL,
+          name: "Cléo Bot",
         },
       }));
     };
@@ -96,7 +99,7 @@ export default function RealtimeConversationsDashboard() {
           >
             <CardHeader className="flex items-center space-x-2">
               {info.profilePicUrl ? (
-                <Avatar>
+                <Avatar className="w-20 h-20">
                   <AvatarImage src={info.profilePicUrl} alt={jid} />
                   <AvatarFallback>{jid[0]}</AvatarFallback>
                 </Avatar>
@@ -106,7 +109,6 @@ export default function RealtimeConversationsDashboard() {
                 </Avatar>
               )}
               <CardTitle className="truncate flex items-center gap-1">
-                <Smartphone className="w-4 h-4 text-blue-500" />
                 {jid.replace("@s.whatsapp.net", "")}
               </CardTitle>
             </CardHeader>
@@ -121,13 +123,7 @@ export default function RealtimeConversationsDashboard() {
                 <span>
                   {new Date(info.timestamp).toLocaleTimeString("pt-BR")}
                 </span>
-                <div className="flex items-center space-x-1 text-xs text-gray-400">
-                  {info.direction === "inbound" ? (
-                    <User className="w-8 h-8 text-blue-500" />
-                  ) : (
-                    <Bot className="w-10 h-10 text-orange-500" />
-                  )}
-                </div>
+                
               </div>
             </CardContent>
           </Card>

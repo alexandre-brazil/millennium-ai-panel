@@ -17,7 +17,7 @@ export default function Tips({ data, onChange }: Step3Props) {
 
   useEffect(() => {
     onChange(form);
-  }, [form]);
+  }, [form, onChange]);
 
   return (
     <div className="space-y-4">

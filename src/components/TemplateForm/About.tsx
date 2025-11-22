@@ -17,8 +17,9 @@ export default function About({ data, onChange }: Step5Props) {
   });
 
   useEffect(() => {
+    // Sempre que 'form' ou 'onChange' mudar, este efeito é executado.
     onChange(form);
-  }, [form]);
+  }, [form, onChange]); // <-- Adicionado 'onChange' aqui
 
   return (
     <div className="space-y-4">

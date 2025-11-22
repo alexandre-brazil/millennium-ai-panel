@@ -1,8 +1,8 @@
 export type Conversation = {
-  instanceId: string;      // ✅ adicionado
-  remoteJid: string;
-  name: string;
-  profilePicUrl: string | null;
-  pause: boolean;
-  attendant: string | null;
+  instance: string;            // corresponde ao nome da instância
+  remoteJid: string;           // JID do contato
+  name: string;                // nome do contato ou fallback para número
+  profilePic: string | null;   // URL da foto de perfil
+  pause: boolean;              // status de pausa
+  attendant: string | null;    // nome do atendente se estiver pausado
 };

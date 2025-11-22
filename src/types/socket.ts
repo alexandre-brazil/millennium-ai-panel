@@ -25,6 +25,8 @@ export interface UserMessageReceivedData {
   text: string;
   timestamp: string;   // ISO 8601 string
   direction: "inbound";
+  profilePicUrl?: string | null;
+
 }
 
 // ---------------------------------------------

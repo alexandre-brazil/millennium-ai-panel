@@ -8,7 +8,7 @@
 
   "conversations": {
     "list": "/conversations",
-    "pause": "/conversations/{instanceId}/{phone}/pause",
-    "resume": "/conversations/{instanceId}/{phone}/resume"
+    "pause": "/conversation/{instanceId}/{phone}/pause",
+    "resume": "/conversation/{instanceId}/{phone}/resume"
   }
 }

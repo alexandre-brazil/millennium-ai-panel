@@ -9,17 +9,16 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { User, Bot, Smartphone } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+
+type ConversationState = Record<
+  string,
+  { lastMessage: string; timestamp: string; direction: string; profilePicUrl?: string | null }
+>;
 
 export default function RealtimeConversationsDashboard() {
-  const [conversations, setConversations] = useState<
-    Record<
-      string,
-      { lastMessage: string; timestamp: string; direction: string }
-    >
-  >({});
-
+  const [conversations, setConversations] = useState<ConversationState>({});
   const [connectionStatus, setConnectionStatus] = useState("Desconectado");
-
   const MAX_VISIBLE_CONVERSATIONS = 2;
 
   useEffect(() => {
@@ -40,6 +39,7 @@ export default function RealtimeConversationsDashboard() {
           lastMessage: data.text,
           timestamp: data.timestamp,
           direction: "inbound",
+          profilePicUrl: data.profilePicUrl || null,
         },
       }));
     };
@@ -51,6 +51,7 @@ export default function RealtimeConversationsDashboard() {
           lastMessage: data.text,
           timestamp: data.timestamp,
           direction: "outbound",
+          profilePicUrl: data.profilePicUrl || null,
         },
       }));
     };
@@ -75,7 +76,6 @@ export default function RealtimeConversationsDashboard() {
 
   return (
     <div className="flex-1 flex items-center justify-center py-10 bg-gray-50">
-      {/* Grid de cards (no centro da tela) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl w-full px-4">
         {/* Skeletons */}
         {visibleConversations.length === 0 &&
@@ -94,9 +94,19 @@ export default function RealtimeConversationsDashboard() {
             key={jid}
             className="shadow-sm border border-gray-200 hover:shadow-md transition bg-white"
           >
-            <CardHeader>
-              <CardTitle className="truncate flex">
-                 <Smartphone className="w-4 h-4 text-blue-500" />
+            <CardHeader className="flex items-center space-x-2">
+              {info.profilePicUrl ? (
+                <Avatar>
+                  <AvatarImage src={info.profilePicUrl} alt={jid} />
+                  <AvatarFallback>{jid[0]}</AvatarFallback>
+                </Avatar>
+              ) : (
+                <Avatar>
+                  <AvatarFallback>{jid[0]}</AvatarFallback>
+                </Avatar>
+              )}
+              <CardTitle className="truncate flex items-center gap-1">
+                <Smartphone className="w-4 h-4 text-blue-500" />
                 {jid.replace("@s.whatsapp.net", "")}
               </CardTitle>
             </CardHeader>
@@ -117,9 +127,6 @@ export default function RealtimeConversationsDashboard() {
                   ) : (
                     <Bot className="w-10 h-10 text-orange-500" />
                   )}
-                  <span>
-                    {info.direction === "inbound" ? "" : ""}
-                  </span>
                 </div>
               </div>
             </CardContent>
